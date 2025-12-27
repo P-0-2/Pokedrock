@@ -1,0 +1,2156 @@
+{
+  "format_version": "1.17.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "serp:despawn",
+      "population_control": "animal"
+    },
+    "conditions": [
+      // ===== FOREST POKÉMON (3 DISTRIBUTION GROUPS) =====
+      // Forest Group A: Daytime, common forest, grass blocks
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p10"},
+          {"weight": 10, "entity_type": "pokemon:p11"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "operator": "!=", "value": "roofed"}
+          ]
+        }
+      },
+      // Forest Group B: Nighttime, forest edges, dirt/grass mix
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:dirt"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 80},
+          {"weight": 14, "entity_type": "pokemon:p12"},
+          {"weight": 6, "entity_type": "pokemon:p13"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {
+              "any_of": [
+                {"test": "has_biome_tag", "value": "plains"},
+                {"test": "has_biome_tag", "value": "river"}
+              ]
+            }
+          ]
+        }
+      },
+      // === PIKACHU BASE SPAWN (ELECTRIC - DAY & NIGHT) ===
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:podzol", "minecraft:coarse_dirt", "minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 0, "max": 15}, // Day & Night
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p25"} // Pikachu - Electric
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "roofed"}
+          ]
+        }
+      },
+      // === PIKACHU WEATHER BOOST (ELECTRIC) ===
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:podzol", "minecraft:coarse_dirt", "minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 0, "max": 15, "adjust_for_weather": true},
+        "minecraft:weather_filter": {
+          "any_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 80}, // 20% base chance during weather
+          {"weight": 20, "entity_type": "pokemon:p25"} // Pikachu - Electric
+        ],
+        "minecraft:weight": {"default": 15},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "roofed"}
+          ]
+        }
+      },
+      // ===== FLOWER FOREST POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 80},
+          {"weight": 20, "entity_type": "pokemon:p15"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "flower_forest"}
+      },
+      // ===== NON-OCEAN SURFACE POKÉMON (3 DISTRIBUTION GROUPS) =====
+      // Group A: Daytime, grass focus
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 16, "entity_type": "pokemon:p16"},
+          {"weight": 9, "entity_type": "pokemon:p17"},
+          {"weight": 5, "entity_type": "pokemon:p18"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "operator": "!=", "value": "ocean"}
+      },
+      // Group B: Nighttime, sand/snow focus
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p19"},
+          {"weight": 4, "entity_type": "pokemon:p20"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "operator": "!=", "value": "ocean"},
+            {"test": "has_biome_tag", "value": "plains"}
+          ]
+        }
+      },
+      // Group C: Rainy, mixed blocks
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 4, "max": 7, "adjust_for_weather": true},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p21"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "operator": "!=", "value": "ocean"},
+            {"test": "has_biome_tag", "value": "forest"}
+          ]
+        }
+      },
+      // ===== EXTREME HILLS POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p22"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "extreme_hills"}
+      },
+      // ===== SWAMP POKÉMON (2 DISTRIBUTION GROUPS) =====
+      // Swamp Group A: Daytime, grass only
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p23"},
+          {"weight": 10, "entity_type": "pokemon:p24"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "swamp"}
+      },
+      // === ELECTRIKE BASE SPAWN (ELECTRIC - DAY & NIGHT) ===
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:clay"],
+        "minecraft:brightness_filter": {"min": 0, "max": 15}, // Day & Night
+        "minecraft:permute_type": [
+          {"weight": 88},
+          {"weight": 12, "entity_type": "pokemon:p309"} // Electrike - Electric
+        ],
+        "minecraft:weight": {"default": 6},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "swamp"},
+            {"test": "has_biome_tag", "value": "river"}
+          ]
+        }
+      },
+      // === ELECTRIKE WEATHER BOOST (ELECTRIC) ===
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:clay"],
+        "minecraft:brightness_filter": {"min": 0, "max": 15, "adjust_for_weather": true},
+        "minecraft:weather_filter": {
+          "any_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 80},
+          {"weight": 20, "entity_type": "pokemon:p309"} // Electrike - Electric
+        ],
+        "minecraft:weight": {"default": 12},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "swamp"},
+            {"test": "has_biome_tag", "value": "river"}
+          ]
+        }
+      },
+
+      // ===== DESERT POKÉMON - SAND NEXT TO CACTUS (COMMON DESERT POKÉMON) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:sand"],
+            "offset": [1, 0, 0],
+            "blocks": ["minecraft:cactus"]
+          },
+          {
+            "blocks": ["minecraft:sand"],
+            "offset": [-1, 0, 0],
+            "blocks": ["minecraft:cactus"]
+          }
+        ],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 7, "entity_type": "pokemon:p27"},
+          {"weight": 3, "entity_type": "pokemon:p28"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "desert"},
+            {"test": "has_biome_tag", "operator": "!=", "value": "beach"}
+          ]
+        }
+      },
+
+      // ===== DESERT POKÉMON - RED SAND ONLY (UNCOMMON MESA POKÉMON) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:red_sand"],
+        "minecraft:permute_type": [
+          {"weight": 92},
+          {"weight": 6, "entity_type": "pokemon:p328"},
+          {"weight": 2, "entity_type": "pokemon:p329"}
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "mesa"},
+            {"test": "has_biome_tag", "value": "mutated_desert"}
+          ]
+        }
+      },
+
+      // ===== DESERT POKÉMON - SAND NEXT TO DEAD BUSH (RARE DESERT POKÉMON) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:sand"],
+            "offset": [1, 0, 0],
+            "blocks": ["minecraft:deadbush"]
+          },
+          {
+            "blocks": ["minecraft:sand"],
+            "offset": [-1, 0, 0],
+            "blocks": ["minecraft:deadbush"]
+          }
+        ],
+        "minecraft:permute_type": [
+          {"weight": 94},
+          {"weight": 4, "entity_type": "pokemon:p443"},
+          {"weight": 2, "entity_type": "pokemon:p444"}
+        ],
+        "minecraft:weight": {"default": 6},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "desert"},
+            {"test": "has_biome_tag", "value": "plains"}
+          ]
+        }
+      },
+
+      // ===== FOREST SNOW POKÉMON (2 DISTRIBUTION GROUPS) =====
+      // Snow Forest Group A: Grass/snow mix
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p29"},
+          {"weight": 10, "entity_type": "pokemon:p30"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "cold"}
+          ]
+        }
+      },
+      // Snow Forest Group B: Nighttime snow only
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 80},
+          {"weight": 14, "entity_type": "pokemon:p32"},
+          {"weight": 6, "entity_type": "pokemon:p33"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "frozen"}
+          ]
+        }
+      },
+      // ===== LOW LIGHT SURFACE POKÉMON =====
+      // CHANGED: p35 (Clefairy) now night-only (0-4 brightness)
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:stone"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p35"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "extreme_hills"},
+            {"test": "has_biome_tag", "value": "mountain"}
+          ]
+        }
+      },
+      // ===== DARK FOREST POKÉMON (2 DISTRIBUTION GROUPS) =====
+      // Dark Forest Group A: Pure dark forest
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p37"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "roofed"},
+            {"test": "has_biome_tag", "value": "forest"}
+          ]
+        }
+      },
+      // Dark Forest Group B: Dark forest edges
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:dirt"],
+        "minecraft:brightness_filter": {"min": 4, "max": 7},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p48"},
+          {"weight": 10, "entity_type": "pokemon:p49"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "roofed"},
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "plains"}
+          ]
+        }
+      },
+      // ===== MONSTER BIOME POKÉMON (3 DISTRIBUTION GROUPS) =====
+      // Monster Group A: Daytime stone
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:stone"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p39"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // Monster Group B: Underground - ZUBAT/GOLBAT NIGHT FIX
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:density_limit": {"underground": 3},
+        "minecraft:brightness_filter": {"min": 0, "max": 7, "adjust_for_weather": false}, // Dark caves
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p41"},  // Zubat - can spawn in dark caves
+          {"weight": 10, "entity_type": "pokemon:p42"}   // Golbat - can spawn in dark caves
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // Monster Group C: Low light conditions
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:brightness_filter": {"min": 5, "max": 7, "adjust_for_weather": false},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:stone"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p359"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== BIRCH FOREST POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:dirt"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p43"},
+          {"weight": 10, "entity_type": "pokemon:p44"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "birch"},
+            {"test": "has_biome_tag", "value": "forest"}
+          ]
+        }
+      },
+      // ===== MUSHROOM ISLAND POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p46"},
+          {"weight": 10, "entity_type": "pokemon:p47"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "mooshroom_island"}
+      },
+      // ===== UNDERGROUND MONSTER POKÉMON =====
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:density_limit": {"underground": 3},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p50"},
+          {"weight": 10, "entity_type": "pokemon:p51"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== PLAINS POKÉMON (3 DISTRIBUTION GROUPS) =====
+      // Plains Group A: Nighttime grass - Meowth/Persian
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 24, "entity_type": "pokemon:p52"}, // Meowth (nocturnal)
+          {"weight": 6, "entity_type": "pokemon:p53"}   // Persian (nocturnal)
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // Plains Group B: Rare daytime
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p58"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // Plains Group C: Anytime - ADDED day filter
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p63"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // ===== RIVER POKÉMON (3 DISTRIBUTION GROUPS) =====
+      // River Group A: Underwater daytime
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_underwater": {},
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 24, "entity_type": "pokemon:p54"},
+          {"weight": 6, "entity_type": "pokemon:p55"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "river"}
+      },
+      // River Group B: Underwater night
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_underwater": {},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p60"},
+          {"weight": 4, "entity_type": "pokemon:p61"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "river"}
+      },
+
+      // ===== RIVER SAND BARS - SAND IN RIVERS (UNCOMMON) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand"],
+        "minecraft:spawns_underwater": {},
+        "minecraft:permute_type": [
+          {"weight": 92},
+          {"weight": 6, "entity_type": "pokemon:p339"},
+          {"weight": 2, "entity_type": "pokemon:p340"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "river"}
+      },
+
+      // ===== SAVANNA/MESA POKÉMON (3 DISTRIBUTION GROUPS) =====
+      // Savanna Group A: Grass/sand mix
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p56"},
+          {"weight": 10, "entity_type": "pokemon:p57"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "savanna"},
+            {"test": "has_biome_tag", "value": "mesa"}
+          ]
+        }
+      },
+      // Savanna Group B: Daytime rare
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p84"},
+          {"weight": 4, "entity_type": "pokemon:p85"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "savanna"},
+            {"test": "has_biome_tag", "value": "mesa"}
+          ]
+        }
+      },
+
+      // ===== MESA/SAVANNA POKÉMON - SAND/GRASS BORDER (RARE) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand", "minecraft:grass"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:sand"],
+            "offset": [1, 0, 0],
+            "blocks": ["minecraft:grass"]
+          },
+          {
+            "blocks": ["minecraft:grass"],
+            "offset": [1, 0, 0],
+            "blocks": ["minecraft:sand"]
+          }
+        ],
+        "minecraft:permute_type": [
+          {"weight": 94},
+          {"weight": 4, "entity_type": "pokemon:p449"},
+          {"weight": 2, "entity_type": "pokemon:p450"}
+        ],
+        "minecraft:weight": {"default": 5},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "savanna"},
+            {"test": "has_biome_tag", "value": "mesa"}
+          ]
+        }
+      },
+
+      // ===== HIGH ALTITUDE MONSTER POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:height_filter": {"min": 128, "max": 196},
+        "minecraft:spawns_on_block_filter": ["minecraft:stone"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p66"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== OCEAN POKÉMON (3 DISTRIBUTION GROUPS) =====
+      // Ocean Group A: Daytime underwater
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_underwater": {},
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p72"},
+          {"weight": 10, "entity_type": "pokemon:p73"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "ocean"}
+      },
+      // Ocean Group B: Night underwater
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_underwater": {},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p86"},
+          {"weight": 4, "entity_type": "pokemon:p87"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "ocean"}
+      },
+      // Ocean Group C: Beach/ocean mix
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_underwater": {},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p90"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "beach"},
+            {"test": "has_biome_tag", "value": "ocean"}
+          ]
+        }
+      },
+
+      // ===== BEACH POKÉMON - GRAVEL BEACHES (COMMON BEACH POKÉMON) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:gravel"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 7, "entity_type": "pokemon:p79"},
+          {"weight": 3, "entity_type": "pokemon:p80"}
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "stone_shore"},
+            {"test": "has_biome_tag", "value": "cold_beach"}
+          ]
+        }
+      },
+
+      // ===== BEACH POKÉMON - SAND AWAY FROM WATER (UNCOMMON BEACH POKÉMON) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:sand"],
+            "offset": [0, -1, 0],
+            "blocks": ["minecraft:sand", "minecraft:sandstone"],
+            "operator": "!="
+          }
+        ],
+        "minecraft:brightness_filter": {"min": 4, "max": 7, "adjust_for_weather": true},
+        "minecraft:permute_type": [
+          {"weight": 92},
+          {"weight": 8, "entity_type": "pokemon:p90"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "beach"},
+            {"test": "has_biome_tag", "value": "cold_beach"}
+          ]
+        }
+      },
+
+      // ===== BEACH/OCEAN POKÉMON - SAND UNDERWATER (RARE WATER/GRASS BORDER) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:sand"],
+            "offset": [1, 0, 0],
+            "blocks": ["minecraft:grass", "minecraft:dirt"]
+          }
+        ],
+        "minecraft:spawns_underwater": {},
+        "minecraft:permute_type": [
+          {"weight": 94},
+          {"weight": 4, "entity_type": "pokemon:p86"},
+          {"weight": 2, "entity_type": "pokemon:p87"}
+        ],
+        "minecraft:weight": {"default": 6},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "beach"},
+            {"test": "has_biome_tag", "value": "forest"}
+          ]
+        }
+      },
+
+      // ===== COLD BEACH POKÉMON - SAND WITH SNOW (RARE) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:sand"],
+            "offset": [0, 1, 0],
+            "blocks": ["minecraft:snow", "minecraft:snow_layer"]
+          }
+        ],
+        "minecraft:permute_type": [
+          {"weight": 94},
+          {"weight": 4, "entity_type": "pokemon:p363"},
+          {"weight": 2, "entity_type": "pokemon:p364"}
+        ],
+        "minecraft:weight": {"default": 5},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "beach"},
+            {"test": "has_biome_tag", "value": "cold"}
+          ]
+        }
+      },
+
+      // ===== BIDOOF & BIBAREL - WATER-ADJACENT HABITATS (3 SEPARATE CONDITIONS) =====
+
+      // Condition 1: Beaches/Rivers/Swamps (Primary Habitat)
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand", "minecraft:gravel", "minecraft:grass"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:sand", "minecraft:gravel", "minecraft:grass"],
+            "offset": [1, 0, 0],
+            "blocks": ["minecraft:water"]
+          }
+        ],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p399"},
+          {"weight": 10, "entity_type": "pokemon:p400"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "beach"},
+            {"test": "has_biome_tag", "value": "river"},
+            {"test": "has_biome_tag", "value": "swamp"}
+          ]
+        }
+      },
+
+      // Condition 2: Forest Rivers (Secondary Habitat)
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:dirt"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:grass", "minecraft:dirt"],
+            "offset": [1, 0, 0],
+            "blocks": ["minecraft:water", "minecraft:flowing_water"]
+          }
+        ],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 22, "entity_type": "pokemon:p399"},
+          {"weight": 8, "entity_type": "pokemon:p400"}
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "river"}
+          ]
+        }
+      },
+
+      // Condition 3: Ocean Shores (Coastal)
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:sand", "minecraft:gravel"],
+        "minecraft:spawns_on_block_preference": [
+          {
+            "blocks": ["minecraft:sand", "minecraft:gravel"],
+            "offset": [0, -1, 0],
+            "blocks": ["minecraft:sand", "minecraft:gravel"]
+          }
+        ],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p399"},
+          {"weight": 10, "entity_type": "pokemon:p400"}
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "beach"},
+            {"test": "has_biome_tag", "value": "ocean"}
+          ]
+        }
+      },
+
+      // ===== HIGH ALTITUDE POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p74"},
+          {"weight": 10, "entity_type": "pokemon:p75"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "is_altitude", "operator": ">=", "value": 90}
+      },
+      // ===== MESA POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p77"},
+          {"weight": 10, "entity_type": "pokemon:p78"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "mesa"}
+      },
+      // ===== VERY HIGH ALTITUDE POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:height_filter": {"min": 128, "max": 196},
+        "minecraft:spawns_on_block_filter": ["minecraft:stone"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p81"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== VERY DARK POKÉMON =====
+      // CHANGED: Fixed adjust_for_weather placement
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:brightness_filter": {"max": 4, "min": 0, "adjust_for_weather": false},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p83"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "operator": "!=", "value": "ocean"}
+      },
+      // ===== UNDERGROUND POKÉMON =====
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:density_limit": {"underground": 3},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p74"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== GASTLY & HAUNTER - NORMAL NIGHT SPAWN =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_underground": {},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:weather_filter": {"test": "is_thundering", "value": false},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 7, "entity_type": "pokemon:p92"},
+          {"weight": 3, "entity_type": "pokemon:p93"}
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "monster"},
+            {
+              "all_of": [
+                {"test": "has_biome_tag", "value": "roofed"},
+                {"test": "has_biome_tag", "value": "forest"}
+              ]
+            }
+          ]
+        }
+      },
+      // ===== GASTLY ONLY - DAY THUNDERSTORM (VERY RARE) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:weather_filter": {
+          "all_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 98},
+          {"weight": 2, "entity_type": "pokemon:p92"}
+        ],
+        "minecraft:weight": {"default": 3},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "monster"},
+            {
+              "all_of": [
+                {"test": "has_biome_tag", "value": "roofed"},
+                {"test": "has_biome_tag", "value": "forest"}
+              ]
+            }
+          ]
+        }
+      },
+      // ===== GASTLY & HAUNTER - THUNDERSTORM NIGHT (BOOSTED) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_underground": {},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:weather_filter": {
+          "all_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 10, "entity_type": "pokemon:p92"},
+          {"weight": 5, "entity_type": "pokemon:p93"}
+        ],
+        "minecraft:weight": {"default": 12},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "monster"},
+            {
+              "all_of": [
+                {"test": "has_biome_tag", "value": "roofed"},
+                {"test": "has_biome_tag", "value": "forest"}
+              ]
+            }
+          ]
+        }
+      },
+      // ===== MISDREAVUS - NIGHT ONLY, NO RAIN =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_underground": {},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:weather_filter": {"test": "is_raining", "value": false},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p200"},
+          {"weight": 4, "entity_type": "pokemon:p354"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "monster"},
+            {"test": "has_biome_tag", "value": "nether"}
+          ]
+        }
+      },
+      // ===== UMBREON - NIGHT ONLY (ADDED) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 1},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 95},
+          {"weight": 5, "entity_type": "pokemon:p197"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "roofed"}
+          ]
+        }
+      },
+      // ===== POOCHYENA/MIGHTYENA - NIGHT ONLY =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p261"},
+          {"weight": 10, "entity_type": "pokemon:p262"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== HOOTHOOT/NOCTOWL - NIGHT ONLY (ADDED FILTER) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p163"},
+          {"weight": 4, "entity_type": "pokemon:p164"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== SPINARAK/ARIADOS - NIGHT ONLY (ADDED FILTER) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p167"},
+          {"weight": 4, "entity_type": "pokemon:p168"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "monster"}
+          ]
+        }
+      },
+      // ===== SABLEYE - NIGHT ONLY =====
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:density_limit": {"underground": 3},
+        "minecraft:brightness_filter": {"max": 4, "min": 0, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p302"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== GLAMEOW/PURUGLY - NIGHT ONLY =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p341"},  // Glameow
+          {"weight": 4, "entity_type": "pokemon:p432"}    // Purugly
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== SHUPPET/BANETTE - NIGHT ONLY =====
+      // CHANGED: Fixed adjust_for_weather placement
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_underground": {},
+        "minecraft:brightness_filter": {"max": 4, "min": 0, "adjust_for_weather": false},
+        "minecraft:weather_filter": {"test": "is_thundering", "value": false},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p353"},
+          {"weight": 4, "entity_type": "pokemon:p354"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "monster"},
+            {"test": "has_biome_tag", "value": "nether"}
+          ]
+        }
+      },
+      // ===== LOTAD LINE - RAIN ONLY (WITH DAY FILTER) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 4, "max": 15},
+        "minecraft:weather_filter": {"test": "is_raining", "value": true},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p270"},
+          {"weight": 10, "entity_type": "pokemon:p271"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "swamp"},
+            {"test": "has_biome_tag", "value": "river"}
+          ]
+        }
+      },
+      // ===== WURMPLE LINE - DAY/NIGHT SEPARATION =====
+      // Wurmple (p265) - Any time
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p265"}  // Wurmple
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "forest"}
+      },
+      // Silcoon (p266) & Beautifly (p269) - DAY ONLY
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 10, "entity_type": "pokemon:p266"},  // Silcoon
+          {"weight": 5, "entity_type": "pokemon:p269"}    // Beautifly
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "forest"}
+      },
+      // Cascoon (p267) & Dustox (p268) - NIGHT ONLY
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 10, "entity_type": "pokemon:p267"},  // Cascoon
+          {"weight": 5, "entity_type": "pokemon:p268"}    // Dustox
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "forest"}
+      },
+      // ===== MAREEP LINE - ELECTRIC WEATHER BOOSTS =====
+      // Mareep (p179) - DAY, Rain OR Thunderstorm
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:weather_filter": {
+          "any_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 80},
+          {"weight": 20, "entity_type": "pokemon:p179"}  // Mareep
+        ],
+        "minecraft:weight": {"default": 15},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "taiga"},
+            {"test": "has_biome_tag", "value": "plains"}
+          ]
+        }
+      },
+      // Flaaffy (p180) - DAY, Rain OR Thunderstorm (rarer)
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:weather_filter": {
+          "any_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p180"}  // Flaaffy
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "taiga"},
+            {"test": "has_biome_tag", "value": "plains"}
+          ]
+        }
+      },
+      // Ampharos (p181) - Thunderstorm ONLY (day or night)
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:weather_filter": {
+          "all_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 95},
+          {"weight": 5, "entity_type": "pokemon:p181"}  // Ampharos
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "taiga"},
+            {"test": "has_biome_tag", "value": "plains"}
+          ]
+        }
+      },
+      // ===== LITWICK/LAMPENT - NIGHT ONLY =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_underground": {},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:spawns_on_block_filter": ["polished_blackstone_bricks", "nether_brick"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p607"},
+          {"weight": 4, "entity_type": "pokemon:p608"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "nether"}
+      },
+      // ===== EEVEE - DAY ONLY (ADDED FILTER) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p133"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // ===== SNORLAX - DAY ONLY (ADDED FILTER) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p143"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // ===== DARK FOREST RARE WITH DELAY =====
+      // CHANGED: Fixed adjust_for_weather placement
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p96"},
+          {"weight": 4, "entity_type": "pokemon:p97"}
+        ],
+        "delay_filter": {"min": 2, "max": 4, "identifier": "pokemon:p96", "spawn_chance": 80},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "roofed"},
+            {"test": "has_biome_tag", "value": "forest"}
+          ]
+        }
+      },
+      // ===== JUNGLE POKÉMON (2 DISTRIBUTION GROUPS) =====
+      // Jungle Group A: Daytime
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p102"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "jungle"}
+      },
+      // Jungle Group B: Rare jungle
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p285"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "jungle"}
+      },
+      // ===== SAVANNA RARE WITH DELAY =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p104"},
+          {"weight": 4, "entity_type": "pokemon:p105"}
+        ],
+        "delay_filter": {"min": 4, "max": 8, "identifier": "pokemon:p104", "spawn_chance": 60},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "savanna"}
+      },
+      // ===== CHERRY GROVE POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p108"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "cherry_grove"}
+      },
+      // ===== MESA UNDERWATER POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_underwater": {},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p109"},
+          {"weight": 4, "entity_type": "pokemon:p110"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "mesa"}
+      },
+      // ===== MESA/SAVANNA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p111"},
+          {"weight": 4, "entity_type": "pokemon:p112"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "mesa"},
+            {"test": "has_biome_tag", "value": "savanna"}
+          ]
+        }
+      },
+      // ===== SAVANNA ULTRA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p113"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "savanna"}
+      },
+      // ===== SAVANNA ULTRA RARE 2 =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p115"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "savanna"}
+      },
+      // ===== OCEAN/RIVER POKÉMON (2 DISTRIBUTION GROUPS) =====
+      // Ocean/River Group A: Daytime
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_underwater": {},
+        "minecraft:brightness_filter": {"min": 7, "max": 15},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p116"},
+          {"weight": 10, "entity_type": "pokemon:p117"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "ocean"},
+            {"test": "has_biome_tag", "value": "river"}
+          ]
+        }
+      },
+      // Ocean/River Group B: Night
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_underwater": {},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p118"},
+          {"weight": 10, "entity_type": "pokemon:p119"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "ocean"},
+            {"test": "has_biome_tag", "value": "river"}
+          ]
+        }
+      },
+      // ===== MUTATED PLAINS RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p123"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "plains"},
+            {"test": "has_biome_tag", "value": "mutated"}
+          ]
+        }
+      },
+      // ===== OCEAN/RIVER COMMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_underwater": {},
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 24, "entity_type": "pokemon:p129"},
+          {"weight": 6, "entity_type": "pokemon:p130"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "ocean"},
+            {"test": "has_biome_tag", "value": "river"}
+          ]
+        }
+      },
+      // ===== OCEAN ULTRA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_underwater": {},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p131"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "ocean"}
+      },
+      // ===== PLAINS ULTRA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p133"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // ===== PLAINS LEGENDARY =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p143"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // ===== SAVANNA/MESA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p147"},
+          {"weight": 4, "entity_type": "pokemon:p148"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "savanna"},
+            {"test": "has_biome_tag", "value": "mesa"}
+          ]
+        }
+      },
+      // ===== MONSTER BIOME COMMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p161"},
+          {"weight": 10, "entity_type": "pokemon:p162"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== MONSTER BIOME DARK =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p163"},
+          {"weight": 4, "entity_type": "pokemon:p164"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== FOREST SNOW RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p165"},
+          {"weight": 4, "entity_type": "pokemon:p166"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "forest"}
+      },
+      // ===== FOREST/MONSTER DARK =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p167"},
+          {"weight": 4, "entity_type": "pokemon:p168"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "forest"},
+            {"test": "has_biome_tag", "value": "monster"}
+          ]
+        }
+      },
+      // ===== TAIGA/PLAINS EVOLUTION LINE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 18, "entity_type": "pokemon:p179"},
+          {"weight": 9, "entity_type": "pokemon:p180"},
+          {"weight": 3, "entity_type": "pokemon:p181"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "taiga"},
+            {"test": "has_biome_tag", "value": "plains"}
+          ]
+        }
+      },
+      // ===== SUDOWOODO TREE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "serp:sudowoodo_tree"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // ===== MUTATED PLAINS EVOLUTION =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 18, "entity_type": "pokemon:p187"},
+          {"weight": 9, "entity_type": "pokemon:p188"},
+          {"weight": 3, "entity_type": "pokemon:p189"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "plains"},
+            {"test": "has_biome_tag", "value": "mutated"}
+          ]
+        }
+      },
+      // ===== MONSTER/NETHER DARK =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_underground": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p200"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "monster"},
+            {"test": "has_biome_tag", "value": "nether"}
+          ]
+        }
+      },
+      // ===== JUNGLE/SAVANNA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p203"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "jungle"},
+            {"test": "has_biome_tag", "value": "savanna"}
+          ]
+        }
+      },
+      // ===== DARK FOREST RARE PAIR =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p204"},
+          {"weight": 4, "entity_type": "pokemon:p205"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "roofed"},
+            {"test": "has_biome_tag", "value": "forest"}
+          ]
+        }
+      },
+      // ===== MONSTER/DARK FOREST ULTRA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 1},
+        "minecraft:spawns_underground": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p206"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "monster"},
+            {
+              "all_of": [
+                {"test": "has_biome_tag", "value": "roofed"},
+                {"test": "has_biome_tag", "value": "forest"}
+              ]
+            }
+          ]
+        }
+      },
+      // ===== FOREST ULTRA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p214"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "forest"}
+      },
+      // ===== FROZEN/ICE PLAINS RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p225"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {
+              "all_of": [
+                {"test": "has_biome_tag", "value": "frozen"},
+                {"test": "has_biome_tag", "value": "ocean"}
+              ]
+            },
+            {"test": "has_biome_tag", "value": "ice_plains"}
+          ]
+        }
+      },
+      // ===== ICE PLAINS COMMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 30, "entity_type": "pokemon:p234"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "ice_plains"}
+          ]
+        }
+      },
+      // ===== PLAINS RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p241"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "plains"}
+      },
+      // ===== UNDERGROUND ULTRA RARE =====
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:density_limit": {"underground": 3},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p246"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== MONSTER BIOME COMMON PAIR =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p261"},
+          {"weight": 10, "entity_type": "pokemon:p262"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== MONSTER BIOME COMMON PAIR 2 =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p263"},
+          {"weight": 10, "entity_type": "pokemon:p264"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== FOREST EVOLUTION LINE =====
+      // REMOVED: Wurmple line now handled separately above
+      // ===== SWAMP/RIVER COMMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p270"},
+          {"weight": 10, "entity_type": "pokemon:p271"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "swamp"},
+            {"test": "has_biome_tag", "value": "river"}
+          ]
+        }
+      },
+      // ===== DARK FOREST RARE PAIR =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p273"},
+          {"weight": 4, "entity_type": "pokemon:p274"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {
+          "all_of": [
+            {"test": "has_biome_tag", "value": "roofed"},
+            {"test": "has_biome_tag", "value": "forest"}
+          ]
+        }
+      },
+      // ===== NON-OCEAN COMMON PAIR =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 20, "entity_type": "pokemon:p276"},
+          {"weight": 10, "entity_type": "pokemon:p277"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "operator": "!=", "value": "ocean"}
+      },
+      // ===== CHERRY GROVE RARE PAIR =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p280"},
+          {"weight": 4, "entity_type": "pokemon:p281"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "cherry_grove"}
+      },
+      // ===== UNDERGROUND RARE =====
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:density_limit": {"underground": 3},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p302"}
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== NON-OCEAN EVOLUTION LINE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 18, "entity_type": "pokemon:p396"},
+          {"weight": 9, "entity_type": "pokemon:p397"},
+          {"weight": 3, "entity_type": "pokemon:p398"}
+        ],
+        "minecraft:weight": {"default": 10},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "operator": "!=", "value": "ocean"}
+      },
+      // ===== SHINX BASE SPAWN (ELECTRIC - NOCTURNAL) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 0, "max": 4, "adjust_for_weather": false}, // Night only
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p403"}  // Shinx - Electric
+        ],
+        "minecraft:weight": {"default": 4},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "ice_plains"},
+            {"test": "has_biome_tag", "value": "taiga"},
+            {"test": "has_biome_tag", "value": "cold"}
+          ]
+        }
+      },
+      // ===== SHINX WEATHER BOOST (ELECTRIC) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:snow_layer"],
+        "minecraft:brightness_filter": {"min": 0, "max": 7, "adjust_for_weather": true}, // Allows darker storm conditions
+        "minecraft:weather_filter": {
+          "any_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 15, "entity_type": "pokemon:p403"}  // Shinx - Electric
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {
+          "any_of": [
+            {"test": "has_biome_tag", "value": "ice_plains"},
+            {"test": "has_biome_tag", "value": "taiga"},
+            {"test": "has_biome_tag", "value": "cold"}
+          ]
+        }
+      },
+      // ===== PACHIRISU BASE SPAWN (ELECTRIC - DIURNAL) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 7, "max": 15}, // Day only
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 30, "entity_type": "pokemon:p417"}  // Pachirisu - Electric
+        ],
+        "minecraft:weight": {"default": 8},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "forest"}
+      },
+      // ===== PACHIRISU WEATHER BOOST (ELECTRIC) =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:brightness_filter": {"min": 4, "max": 15, "adjust_for_weather": true}, // Storms make it darker
+        "minecraft:weather_filter": {
+          "any_of": [
+            {"test": "is_thundering", "value": true},
+            {"test": "is_raining", "value": true}
+          ]
+        },
+        "minecraft:permute_type": [
+          {"weight": 70},
+          {"weight": 30, "entity_type": "pokemon:p417"}  // Pachirisu - Electric
+        ],
+        "minecraft:weight": {"default": 15},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "forest"}
+      },
+      // ===== MONSTER BIOME RARE PAIR =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 3},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass", "minecraft:sand", "minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 85},
+          {"weight": 11, "entity_type": "pokemon:p341"},  // Glameow
+          {"weight": 4, "entity_type": "pokemon:p432"}    // Purugly
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== NETHER POKÉMON =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:spawns_underground": {},
+        "minecraft:spawns_on_block_filter": ["polished_blackstone_bricks", "nether_brick"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p607"},
+          {"weight": 4, "entity_type": "pokemon:p608"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "nether"}
+      },
+      // ===== HIGH ALTITUDE RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 2},
+        "minecraft:height_filter": {"min": 128, "max": 196},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p701"}
+        ],
+        "minecraft:weight": {"default": 7},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== UNDERGROUND DARK ULTRA RARE =====
+      // CHANGED: Fixed adjust_for_weather placement
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:density_limit": {"underground": 3},
+        "minecraft:brightness_filter": {"max": 4, "min": 0, "adjust_for_weather": false},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p884"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== PALE GARDEN RARE PAIR =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p885"},
+          {"weight": 4, "entity_type": "pokemon:p886"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "pale_garden"}
+      },
+      // ===== NETHER ULTRA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_underground": {},
+        "minecraft:spawns_on_block_filter": ["polished_blackstone_bricks", "nether_brick"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p935"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "nether"}
+      },
+      // ===== MESA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": ["minecraft:grass"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p957"}
+        ],
+        "minecraft:weight": {"default": 3},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "mesa"}
+      },
+      // ===== PALE GARDEN ULTRA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p971"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "pale_garden"}
+      },
+      // ===== HIGH SNOW MONSTER RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 1},
+        "minecraft:height_filter": {"min": 128, "max": 196},
+        "minecraft:spawns_on_block_filter": ["minecraft:snow_layer"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p361"},
+          {"weight": 4, "entity_type": "pokemon:p362"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== HIGH STONE MONSTER RARE PAIR =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 1},
+        "minecraft:height_filter": {"min": 128, "max": 196},
+        "minecraft:spawns_on_block_filter": ["minecraft:stone"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 6, "entity_type": "pokemon:p371"},
+          {"weight": 4, "entity_type": "pokemon:p372"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      },
+      // ===== HIGH STONE MONSTER ULTRA RARE =====
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:density_limit": {"surface": 1},
+        "minecraft:height_filter": {"min": 128, "max": 196},
+        "minecraft:spawns_on_block_filter": ["minecraft:stone"],
+        "minecraft:permute_type": [
+          {"weight": 90},
+          {"weight": 10, "entity_type": "pokemon:p374"}
+        ],
+        "minecraft:weight": {"default": 1},
+        "minecraft:biome_filter": {"test": "has_biome_tag", "value": "monster"}
+      }
+    ]
+  }
+}
